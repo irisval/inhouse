@@ -5,7 +5,7 @@ web_module = Blueprint(
 	__name__,
 	url_prefix = "",
 	template_folder = "templates",
-	static_folder = "static"
+	static_folder = "web_static"
 )
 
 from . import views
