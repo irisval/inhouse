@@ -1,0 +1,88 @@
+{% macro render_flash_messages() %}
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      <ul class="flashes">
+        {% for category, message in messages %}
+          <li class="{{ category }}"><p>{% if category != "neutral" %}{{ category.capitalize()+": " }}{% endif %}{{ message }}</p><div class="close"></div></li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  {% endwith %}
+{% endmacro %}
+
+
+{% macro render_field(field, disabled = false, char_limit = None) %}
+{% if field.type == "BooleanField" %}
+  <div class="checkboxes {% if field.errors %}error{% endif %}">
+    {{ field(placeholder = field.description, disabled = disabled) }}
+  </div>
+  {% if field.errors %}
+      <p class="error-msg">{{ field.errors[0] }}</p>
+    {% endif %}
+{% else %}
+  <div class="form-elt {% if field.errors %}error{% endif %}">
+    {% if field.type == "TextAreaField" %}
+      <p>{{ field.label }}</p>
+      {{ field(placeholder = field.description, maxlength = field.max, disabled = disabled) }}
+      {% if char_limit != None %}
+        <p class="count" id="{{ field.name }}">Characters left: {{ char_limit }}</p>
+      {% endif %}
+    {% else %}
+      {{ field(placeholder = field.description, disabled = disabled) }}
+    {% endif %}
+    {% if field.errors %}
+      <p class="error-msg">{{ field.errors[0] }}</p>
+    {% endif %}
+  </div>
+  {% endif %}
+{% endmacro %}
+
+<!DOCTYPE html>
+<html>
+  <head>
+   <title>InHouse - Internal Tools</title>
+    <link rel="icon" href="">
+    <meta name="X-UA-Compatible" content="ie=edge,chrome=1">
+    <meta name="mobile-web-app-capable" content="true">
+    <meta name="apple-mobile-web-app-capable" content="true">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ****** -->
+          <!-- Fill in the metadata content values and external links below!! -->
+    <!-- ****** -->
+
+    <!-- Basic Metadata-->
+    <meta name="title" content="">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta property="url" content="">
+    <!-- Open Graph Data -->
+    <meta property="og:title" content="">
+    <meta property="og:type" content="website" />
+    <meta property="og:description" content="">
+    <meta property="og:url" content="">
+    <meta property="og:image" content="">
+    <meta property="og:site_name" content="" />
+    <meta property="fb:admins" content="" />
+    <!-- Twitter Card Data -->
+    <meta property="twitter:card" content="summary">
+    <meta property="twitter:creater" content="">
+    <meta name="twitter:site" content="">
+    <meta property="twitter:description" content="">
+    <meta property="twitter:image" content="">
+    <meta property="twitter:title" content="">
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="/static/css/main.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="/{% block static_folder %}{% endblock %}/css/style.css"> 
+    <!-- Scripts -->
+    {% block scripts %}
+    {% endblock %}
+  </head>
+
+  <body>
+  {{ render_flash_messages() }}
+    {% block content %}
+    {% endblock %}
+  </body>
+</html>

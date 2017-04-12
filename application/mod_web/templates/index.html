@@ -1,0 +1,15 @@
+{% extends "web.base.html" %}
+
+{% set nav_bar = [
+ 
+] -%}
+
+{% block header %}{% endblock %}
+
+{% block content %}
+  {% with nav_bar = nav_bar %}
+    {% include "navbar.html" %}
+  {% endwith %}
+
+<p>Insert index page here.</p>
+{% endblock %}

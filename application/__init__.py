@@ -61,8 +61,8 @@ def error(e):
 def error(e):
     return render_template("502.html"), 502
 
-# from application.mod_web import web_module
-# app.register_blueprint(web_module)
+from application.mod_web import web_module
+app.register_blueprint(web_module)
 # from application.mod_hacker import hacker_module
 # app.register_blueprint(hacker_module)
 # from application.mod_user import user_module
