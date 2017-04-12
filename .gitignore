@@ -1,0 +1,7 @@
+venv/
+__pycache__/
+*.py[cod]
+*.cfg
+*.ini
+*.pem
+.sass-cache/
